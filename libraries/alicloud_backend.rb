@@ -227,6 +227,16 @@ class AliCloudResourceBase < Inspec.resource(1)
   def respond_to_missing?(*several_variants)
     super
   end
+
+  def map_tags(tag_list)
+    return {} if tag_list.nil? || tag_list.empty?
+
+    tags = {}
+    tag_list.each do |tag|
+      tags[tag["Key"]] = tag["Value"] if tag.key?("Key")
+    end
+    tags
+  end
 end
 
 # Ensure to return nil recursively.
